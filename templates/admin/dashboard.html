@@ -1,0 +1,12 @@
+{% extends "base.html" %}{% block content %}
+<h1>Products</h1><a class="btn" href="{{ url_for('admin_product') }}">Add product</a>
+<table style="margin-top:1rem"><tr><th>Name</th><th>Price</th><th>Stock</th><th></th></tr>
+{% for p in products %}<tr><td>{{ p.name }}</td><td>{{ p.price|money }}</td><td>{{ p.stock }}</td><td class="inline">
+<a href="{{ url_for('admin_product', pid=p.id) }}">Edit</a>
+<form method="post" action="{{ url_for('admin_delete', pid=p.id) }}" onsubmit="return confirm('Delete this product?')"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button class="alt">Delete</button></form></td></tr>{% endfor %}</table>
+<h1>Recent orders</h1>
+<table><tr><th>#</th><th>Customer</th><th>Total</th><th>Status</th></tr>
+{% for o in orders %}<tr><td>{{ o.id }}</td><td>{{ o.user.email }}</td><td>{{ o.total|money }}</td><td>
+<form method="post" action="{{ url_for('admin_status', oid=o.id) }}" class="inline"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+<select name="status" aria-label="Status">{% for s in statuses %}<option {{ 'selected' if s==o.status }}>{{ s }}</option>{% endfor %}</select><button class="alt">Save</button></form></td></tr>{% endfor %}</table>
+{% endblock %}

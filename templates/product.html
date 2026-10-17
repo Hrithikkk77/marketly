@@ -1,0 +1,7 @@
+{% extends "base.html" %}{% block title %}{{ p.name }}{% endblock %}{% block content %}
+<div class="detail"><div class="img card">{% if p.image_url %}<img src="{{ p.image_url }}" alt="{{ p.name }}">{% else %}{{ p.name[0] }}{% endif %}</div>
+<div><h1>{{ p.name }}</h1><p class="muted">{{ p.category.name }}</p><div class="price">{{ p.price|money }}</div><p>{{ p.description }}</p>
+{% if p.stock %}<form method="post" action="{{ url_for('cart_add', pid=p.id) }}" class="inline"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+<input type="number" name="quantity" value="1" min="1" max="{{ p.stock }}" aria-label="Quantity"><button>Add to cart</button></form>
+{% else %}<p><strong>Out of stock</strong></p>{% endif %}</div></div>
+{% endblock %}

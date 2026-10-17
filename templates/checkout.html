@@ -1,0 +1,7 @@
+{% extends "base.html" %}{% block content %}<h1>Checkout</h1>
+<table>{% for i in items %}<tr><td>{{ i.product.name }} × {{ i.quantity }}</td><td>{{ (i.product.price*i.quantity)|money }}</td></tr>{% endfor %}</table>
+<p class="price">Total: {{ total|money }}</p>
+<form method="post" class="stack"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+<label>Full name<input name="name" value="{{ current_user.name }}" required></label>
+<label>Delivery address<textarea name="address" rows="4" required></textarea></label>
+<p class="muted">Payment: cash on delivery.</p><button>Place order</button></form>{% endblock %}

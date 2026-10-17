@@ -1,0 +1,10 @@
+{% extends "base.html" %}{% block content %}
+<div class="filters"><h1>{% if q %}Results for “{{ q }}”{% else %}Shop everything{% endif %}</h1>
+<form><input type="hidden" name="q" value="{{ q }}">{% if cat %}<input type="hidden" name="category" value="{{ cat }}">{% endif %}
+<select name="sort" onchange="this.form.submit()" aria-label="Sort">
+<option value="new" {{ 'selected' if sort=='new' }}>Newest</option><option value="low" {{ 'selected' if sort=='low' }}>Price: low to high</option><option value="high" {{ 'selected' if sort=='high' }}>Price: high to low</option></select></form></div>
+{% if pg.items %}<div class="grid">{% for p in pg.items %}{% include "_card.html" %}{% endfor %}</div>
+<div class="pager">{% if pg.has_prev %}<a href="{{ url_for('index', q=q, category=cat, sort=sort, page=pg.prev_num) }}">Previous</a>{% endif %}
+{% if pg.has_next %}<a href="{{ url_for('index', q=q, category=cat, sort=sort, page=pg.next_num) }}">Next</a>{% endif %}</div>
+{% else %}<p>No products match. Try a different search or <a href="{{ url_for('index') }}">browse all products</a>.</p>{% endif %}
+{% endblock %}

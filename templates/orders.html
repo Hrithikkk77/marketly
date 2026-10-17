@@ -1,0 +1,5 @@
+{% extends "base.html" %}{% block content %}<h1>Your orders</h1>
+{% for o in orders %}<div class="card" style="margin-bottom:1rem"><div class="body"><strong>Order #{{ o.id }}</strong> · {{ o.created_at.strftime('%d %b %Y') }} · {{ o.status }} · {{ o.total|money }}
+<ul>{% for i in o.items %}<li>{{ i.name }} × {{ i.quantity }} ({{ i.price|money }})</li>{% endfor %}</ul>
+<div class="muted">Ships to {{ o.shipping_name }}, {{ o.shipping_address }}</div></div></div>
+{% else %}<p>No orders yet. <a href="{{ url_for('index') }}">Start shopping</a>.</p>{% endfor %}{% endblock %}

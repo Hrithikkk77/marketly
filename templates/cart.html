@@ -1,0 +1,8 @@
+{% extends "base.html" %}{% block content %}<h1>Your cart</h1>
+{% if items %}<table><tr><th>Item</th><th>Price</th><th>Quantity</th><th>Subtotal</th></tr>
+{% for i in items %}<tr><td><a href="{{ url_for('product', pid=i.product_id) }}">{{ i.product.name }}</a></td><td>{{ i.product.price|money }}</td>
+<td><form method="post" action="{{ url_for('cart_update', item_id=i.id) }}" class="inline"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+<input type="number" name="quantity" value="{{ i.quantity }}" min="0" aria-label="Quantity"><button class="alt">Update</button></form></td>
+<td>{{ (i.product.price*i.quantity)|money }}</td></tr>{% endfor %}</table>
+<p class="price">Total: {{ total|money }}</p><a class="btn" href="{{ url_for('checkout') }}">Go to checkout</a>
+{% else %}<p>Your cart is empty. <a href="{{ url_for('index') }}">Find something to buy</a>.</p>{% endif %}{% endblock %}
