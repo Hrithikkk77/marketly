@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Marketly: Flask + MySQL e-commerce
 
 ## Run locally in VS Code
@@ -60,3 +61,6 @@ Health check URL: `/health`.
 
 ## Not included
 Online payments (add Stripe/Razorpay in `checkout`), email, product reviews, image upload, password reset.
+=======
+# marketly
+>>>>>>> 76a7d1274301e080a28b7e7466f0eb2767277096
